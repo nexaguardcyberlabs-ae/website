@@ -11,13 +11,13 @@
 Using HTTPS:
 
 ```bash
-git clone https://github.com/Fletten-IT/Nexaguard-website-v2.git
+git clone https://github.com/nexaguardcyberlabs/website.git
 ```
 
 Or using SSH:
 
 ```bash
-git clone git@github.com:Fletten-IT/Nexaguard-website-v2.git
+git clone git@github.com:nexaguardcyberlabs/website.git
 ```
 
 ### Install Dependencies
