@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import Analytics from "@/components/analytics";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
@@ -60,6 +61,7 @@ export default function RootLayout({
         {children}
         <WhatsAppButton />
         <Footer />
+        <VercelAnalytics />
       </body>
     </html>
   );

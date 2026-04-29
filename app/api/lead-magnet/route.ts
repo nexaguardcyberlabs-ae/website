@@ -173,14 +173,20 @@ export async function POST(request: NextRequest) {
     if (newsletter) {
       await appendToJsonLog(
         path.join(process.cwd(), "data", "newsletter-subscribers.json"),
-        { timestamp: submission.timestamp, name, email, company, source: resource_id }
+        {
+          timestamp: submission.timestamp,
+          name,
+          email,
+          company,
+          source: resource_id,
+        }
       );
     }
 
     const resendKey = process.env.RESEND_API_KEY;
     const resendDomain = process.env.RESEND_DOMAIN;
 
-    if (!resendKey || !resendDomain) {
+    if (!(resendKey && resendDomain)) {
       console.warn(
         "[lead-magnet] RESEND_API_KEY or RESEND_DOMAIN not set — submission logged but no email sent."
       );
@@ -194,12 +200,12 @@ export async function POST(request: NextRequest) {
     const pdfFile = RESOURCE_FILES[resource_id];
     const pdfFilename = RESOURCE_FILENAMES[resource_id];
 
-    let attachments: { filename: string; path: string }[] = [];
+    let attachments: { filename: string; content: Buffer }[] = [];
     if (pdfFile && pdfFilename) {
       const pdfPath = path.join(process.cwd(), pdfFile);
       try {
-        await fs.access(pdfPath);
-        attachments = [{ filename: pdfFilename, path: pdfPath }];
+        const content = await fs.readFile(pdfPath);
+        attachments = [{ filename: pdfFilename, content }];
       } catch {
         console.error(`[lead-magnet] PDF not found at ${pdfPath}`);
       }
@@ -210,7 +216,15 @@ export async function POST(request: NextRequest) {
       from: `Lead Magnet <no-reply@${resendDomain}>`,
       to: ["info@nexaguardcyberlabs.com"],
       subject: `New Lead Magnet Download — ${company}`,
-      html: getAdminLeadHtml({ name, email, company, jobTitle, country, newsletter, resource_id }),
+      html: getAdminLeadHtml({
+        name,
+        email,
+        company,
+        jobTitle,
+        country,
+        newsletter,
+        resource_id,
+      }),
     });
 
     if (adminResult.error) {
@@ -229,7 +243,10 @@ export async function POST(request: NextRequest) {
     if (userResult.error) {
       console.error("[lead-magnet] User email error:", userResult.error);
       return NextResponse.json(
-        { error: "Something went wrong sending your email. Please try again or contact info@nexaguardcyberlabs.com directly." },
+        {
+          error:
+            "Something went wrong sending your email. Please try again or contact info@nexaguardcyberlabs.com directly.",
+        },
         { status: 500 }
       );
     }
@@ -238,7 +255,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("[lead-magnet] Unhandled error:", error);
     return NextResponse.json(
-      { error: "Something went wrong. Please try again or contact info@nexaguardcyberlabs.com directly." },
+      {
+        error:
+          "Something went wrong. Please try again or contact info@nexaguardcyberlabs.com directly.",
+      },
       { status: 500 }
     );
   }
