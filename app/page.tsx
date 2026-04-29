@@ -1,44 +1,44 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import type { Metadata } from "next";
+import { Suspense } from "react";
 import AboutUsSection from "@/featuers/landing-page/about";
+import ComplianceStrip from "@/featuers/landing-page/compliance-strip";
 import ContactSection from "@/featuers/landing-page/contact";
+import FinalCTA from "@/featuers/landing-page/final-cta";
 import Hero from "@/featuers/landing-page/hero";
-import CoreServicesSection from "@/featuers/landing-page/services-data";
+import HomeScrollHandler from "@/featuers/landing-page/home-scroll-handler";
+import IndustriesSection from "@/featuers/landing-page/industries";
+import FreeToolsSection from "@/components/sections/FreeToolsSection";
+import ServicesOverview from "@/featuers/landing-page/services-overview";
+import TrustPillars from "@/featuers/landing-page/trust-pillars";
 import UAEPartnerSection from "@/featuers/landing-page/uae-partner-section";
 import WhyChooseUsSection from "@/featuers/landing-page/why-choose-us-section";
 
-function HomeContent() {
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    if (searchParams?.get("scroll") === "contact") {
-      const timer = setTimeout(() => {
-        const contactSection = document.getElementById("contact");
-        contactSection?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [searchParams]);
-
-  return (
-    <div>
-      <Hero />
-      <AboutUsSection />
-      <CoreServicesSection />
-      <WhyChooseUsSection />
-      <UAEPartnerSection />
-      {/* <BlogsNewsSection /> */}
-      <ContactSection />
-    </div>
-  );
-}
+export const metadata: Metadata = {
+  title:
+    "Cybersecurity Services in Dubai | VAPT, ISO 27001 | Nexaguard Cyber Labs",
+  description:
+    "UAE's senior-led cybersecurity consultancy. VAPT, ISO 27001 readiness, managed security services for fintechs, SaaS, and growing businesses. Free VAPT self-assessment available. Based in Dubai.",
+};
 
 export default function Home() {
   return (
-    <Suspense fallback={null}>
-      <HomeContent />
-    </Suspense>
+    <>
+      <Suspense fallback={null}>
+        <HomeScrollHandler />
+      </Suspense>
+      <div>
+        <Hero />
+        <TrustPillars />
+        <AboutUsSection />
+        <ServicesOverview />
+        <WhyChooseUsSection />
+        <ComplianceStrip />
+        <IndustriesSection />
+        <UAEPartnerSection />
+        <FreeToolsSection />
+        <FinalCTA />
+        <ContactSection />
+      </div>
+    </>
   );
 }

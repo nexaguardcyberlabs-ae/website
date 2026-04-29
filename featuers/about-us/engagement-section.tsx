@@ -137,18 +137,19 @@ export default function EngagementSection() {
               <div className="lg:pl-6">
                 {/* Your H3 Style */}
                 <h3 className="mb-6 font-bold text-3xl text-white">
-                  Global,{" "}
+                  UAE-Based,{" "}
                   <span className="bg-linear-to-r from-white to-gray-500 bg-clip-text text-transparent">
-                    Yet Personal
+                    Deeply Personal
                   </span>
                 </h3>
 
                 <div className="space-y-6 text-base text-white leading-relaxed sm:text-lg">
                   <p>
-                    With global delivery capabilities and regional expertise,
-                    Nexaguard supports organizations across industries and
-                    geographies—while maintaining a deeply personal, partner-led
-                    engagement model.
+                    Based in Dubai Silicon Oasis and focused on the UAE and GCC
+                    market, Nexaguard brings senior-level practitioners directly
+                    to every engagement — no account managers, no junior
+                    handoffs. The expert you meet in scoping is the one running
+                    your assessment.
                   </p>
                 </div>
               </div>

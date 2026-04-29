@@ -1,0 +1,62 @@
+[
+  {
+    "timestamp": "2026-04-28T17:02:51.790Z",
+    "resource_id": "compliance-checklist",
+    "name": "Test User",
+    "email": "test@example.com",
+    "company": "Test Co",
+    "jobTitle": "CTO",
+    "country": "UAE",
+    "newsletter": false
+  },
+  {
+    "timestamp": "2026-04-28T17:03:03.746Z",
+    "resource_id": "web-app-security-guide",
+    "name": "Test User",
+    "email": "test@example.com",
+    "company": "Test Co",
+    "jobTitle": "CTO",
+    "country": "UAE",
+    "newsletter": true
+  },
+  {
+    "timestamp": "2026-04-28T17:06:31.866Z",
+    "resource_id": "compliance-checklist",
+    "name": "Nexagaurd cyberlabs",
+    "email": "nexagaurdcyberlabs@gmail.com",
+    "company": "ghbknm",
+    "jobTitle": "mnnjnj",
+    "country": "UAE",
+    "newsletter": true
+  },
+  {
+    "timestamp": "2026-04-28T17:07:38.386Z",
+    "resource_id": "compliance-checklist",
+    "name": "Nexagaurd cyberlabs",
+    "email": "nexagaurdcyberlabs@gmail.com",
+    "company": "ghbknm",
+    "jobTitle": "mnnjnj",
+    "country": "UAE",
+    "newsletter": true
+  },
+  {
+    "timestamp": "2026-04-28T17:07:57.523Z",
+    "resource_id": "web-app-security-guide",
+    "name": "Nexagaurd cyberlabs",
+    "email": "nexagaurdcyberlabs@gmail.com",
+    "company": "ghbknm",
+    "jobTitle": "mnnjnj",
+    "country": "UAE",
+    "newsletter": false
+  },
+  {
+    "timestamp": "2026-04-28T18:38:14.144Z",
+    "resource_id": "web-app-security-guide",
+    "name": "Nexagaurd cyberlabs",
+    "email": "nexagaurdcyberlabs@gmail.com",
+    "company": "ghbknm",
+    "jobTitle": "mnnjnj",
+    "country": "Qatar",
+    "newsletter": false
+  }
+]

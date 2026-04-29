@@ -76,6 +76,16 @@ export const features = [
     border: "group-hover:border-amber-500/50",
     shadow: "group-hover:shadow-[0_0_30px_rgba(245,158,11,0.15)]",
   },
+  {
+    id: "05",
+    label: "Continuity",
+    title: "Engagement Continuity",
+    icon: "/landing/why1.svg",
+    desc: "We don't disappear after the report. Whether you need re-testing, remediation guidance, or a long-term advisory relationship — we're built for ongoing partnership.",
+    accent: "text-rose-400",
+    border: "group-hover:border-rose-500/50",
+    shadow: "group-hover:shadow-[0_0_30px_rgba(244,63,94,0.15)]",
+  },
 ];
 
 // --- Data ---

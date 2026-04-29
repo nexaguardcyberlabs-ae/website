@@ -55,3 +55,77 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ── CTA pulse animation (primary above-fold CTAs) ── */
+@keyframes cta-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(24, 167, 183, 0);
+  }
+  50% {
+    box-shadow: 0 0 24px 6px rgba(24, 167, 183, 0.35);
+  }
+}
+
+.hero-primary-cta {
+  animation: cta-pulse 4s ease-in-out infinite;
+}
+
+/* ── Scanner beam animation (WhyChooseUs horizontal cards) ── */
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(500px);
+    opacity: 0;
+  }
+}
+
+/* ── Mesh gradient blob animations (MeshGradientBackground component) ── */
+@keyframes mesh-drift-1 {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(40px, -30px, 0) scale(1.08); }
+  100% { transform: translate3d(-20px, 20px, 0) scale(0.95); }
+}
+
+@keyframes mesh-drift-2 {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(-50px, 30px, 0) scale(1.1); }
+  100% { transform: translate3d(30px, -20px, 0) scale(0.92); }
+}
+
+@keyframes mesh-drift-3 {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(20px, 40px, 0) scale(1.05); }
+  100% { transform: translate3d(-30px, -10px, 0) scale(0.97); }
+}
+
+/* ── Marquee scroll animation (ManifestoCard ribbon) ── */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Respect user motion preferences ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-primary-cta {
+    animation: none;
+  }
+
+  /* Disable GSAP/Framer animations via CSS fallback */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

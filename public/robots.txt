@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /thank-you
+Disallow: /api/
+
+Sitemap: https://nexaguardcyberlabs.com/sitemap.xml

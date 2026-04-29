@@ -3,9 +3,10 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, MessageCircle, Calendar } from "lucide-react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { servicesData } from "@/app/data";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -74,6 +75,7 @@ const ContactSection = () => {
   const containerRef = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLSpanElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -133,18 +135,8 @@ const ContactSection = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSubmitStatus({
-          type: "success",
-          message: "Message sent successfully! We'll get back to you soon.",
-        });
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          company: "",
-          service: "",
-          message: "",
-        });
+        router.push("/thank-you");
+        return;
       } else {
         setSubmitStatus({
           type: "error",
@@ -230,66 +222,73 @@ const ContactSection = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2">
-          {/* LEFT COLUMN */}
-          <div className="grid h-full grid-cols-1 gap-6 sm:grid-cols-2">
-            {/* Email */}
-            <SpotlightCard className="contact-card flex h-full flex-col p-6">
-              <div className="flex h-full flex-col">
-                <div className="flex shrink-0 justify-start">
-                  <Mail className="mb-6 h-8 w-8 text-cyan-400" />
+          {/* LEFT COLUMN — Rich contact info card */}
+          <SpotlightCard className="contact-card h-full p-8">
+            <div className="flex h-full flex-col gap-6">
+
+              {/* Contact details */}
+              <div className="space-y-4">
+                <a href="mailto:info@nexaguardcyberlabs.com" className="flex items-start gap-4 rounded-lg p-3 transition hover:bg-white/5 group">
+                  <Mail className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
+                  <div>
+                    <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-0.5">Email</p>
+                    <p className="text-white text-sm group-hover:text-cyan-300 transition-colors">info@nexaguardcyberlabs.com</p>
+                  </div>
+                </a>
+
+                <a href="tel:+971506233538" className="flex items-start gap-4 rounded-lg p-3 transition hover:bg-white/5 group">
+                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
+                  <div>
+                    <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-0.5">Phone</p>
+                    <p className="text-white text-sm group-hover:text-cyan-300 transition-colors">+971 50 623 3538</p>
+                  </div>
+                </a>
+
+                <div className="flex items-start gap-4 rounded-lg p-3">
+                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
+                  <div>
+                    <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-0.5">Office</p>
+                    <p className="text-white text-sm leading-relaxed">Building A1, Dubai Digital Park,<br />Dubai Silicon Oasis, UAE</p>
+                  </div>
                 </div>
-                <div className="mt-auto flex grow flex-col justify-end">
-                  <h4 className="mb-1 font-medium text-lg text-white">
-                    Email Us
-                  </h4>
-                  <p className="text-gray-400 text-sm">
-                    info@Nexaguardcyberlabs.com
+              </div>
+
+              <div className="h-px bg-white/8" />
+
+              {/* WhatsApp — copy + CTA, no phone number */}
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <MessageCircle className="h-4 w-4 text-green-400 shrink-0" />
+                  <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest">WhatsApp</p>
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                  Prefer WhatsApp? Get a faster response.
+                </p>
+                <a
+                  href="https://wa.me/971506233538?text=Hi%20Nexaguard%2C%20I%27d%20like%20to%20discuss%20our%20cybersecurity%20needs."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-green-400/30 bg-green-400/5 px-5 py-3 text-green-300 text-sm font-medium transition hover:border-green-400/50 hover:bg-green-400/10"
+                >
+                  <MessageCircle className="h-4 w-4 shrink-0" />
+                  Chat on WhatsApp →
+                </a>
+              </div>
+
+              {/* Office hours */}
+              <div className="flex items-start gap-3">
+                <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" />
+                <div>
+                  <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1">Hours</p>
+                  <p className="text-gray-300 text-xs leading-relaxed">
+                    Monday – Saturday<br />
+                    9:00 AM – 6:00 PM
                   </p>
                 </div>
               </div>
-            </SpotlightCard>
 
-            {/* Phone */}
-            <SpotlightCard className="contact-card flex h-full flex-col p-6">
-              <div className="flex h-full flex-col">
-                <div className="flex shrink-0 justify-start">
-                  <Phone className="mb-6 h-8 w-8 text-cyan-400" />
-                </div>
-                <div className="mt-auto flex grow flex-col justify-end">
-                  <h4 className="mb-1 font-medium text-lg text-white">
-                    Call Us
-                  </h4>
-                  <p className="text-gray-400 text-sm">+971 50 6233538</p>
-                </div>
-              </div>
-            </SpotlightCard>
-
-            {/* Address */}
-            <div className="relative h-full sm:col-span-2">
-              <SpotlightCard className="contact-card flex h-full flex-col justify-between p-6">
-                <div className="flex h-full flex-col">
-                  <div className="flex shrink-0 justify-start">
-                    <MapPin className="mb-6 h-8 w-8 text-cyan-400" />
-                  </div>
-                  <div className="mt-auto flex grow flex-col justify-end">
-                    <h4 className="mb-2 font-medium text-lg text-white">
-                      Visit Us
-                    </h4>
-                    <p className="max-w-md text-gray-400 text-sm leading-relaxed">
-                      Building A1, Dubai Digital Park, Dubai Silicon Oasis,
-                      Dubai, United Arab Emirates
-                    </p>
-                  </div>
-                </div>
-                <button
-                  className="absolute top-4 right-4 inline-flex cursor-pointer items-center gap-2 font-medium text-cyan-400 text-sm transition-colors hover:text-cyan-300"
-                  type="button"
-                >
-                  Locate Us <ArrowRight className="h-4 w-4" />
-                </button>
-              </SpotlightCard>
             </div>
-          </div>
+          </SpotlightCard>
 
           {/* RIGHT COLUMN */}
           <SpotlightCard className="contact-card h-full bg-[#020408] p-8">

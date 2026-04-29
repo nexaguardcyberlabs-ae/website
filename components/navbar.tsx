@@ -4,24 +4,26 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us" },
-  // { label: "Insights", href: "/blog" },
   { label: "Services", href: "/services" },
-  // { label: "Contact", href: "/contact" },
+  { label: "Resources", href: "/resources" },
+  { label: "Contact", href: "/contact" },
 ];
+
+const CALENDLY_URL =
+  process.env.NEXT_PUBLIC_CALENDLY_URL ||
+  "https://calendly.com/nexaguard-placeholder";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
-  const router = useRouter();
 
-  // Navbar entrance animation
   useGSAP(() => {
     gsap.fromTo(
       navRef.current,
@@ -30,7 +32,6 @@ export default function Navbar() {
     );
   }, []);
 
-  // Lock body scroll when menu open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -38,14 +39,6 @@ export default function Navbar() {
       document.body.style.overflow = "";
     }
   }, [isMobileMenuOpen]);
-
-  const handleContactScroll = () => {
-    router.push("/contact" as never);
-  };
-
-  // Determine if Contact is active
-  const isContactActive =
-    pathname === "/contact" || pathname?.startsWith("/contact");
 
   return (
     <header
@@ -79,7 +72,7 @@ export default function Navbar() {
         <div className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
           <Link href="/">
             <Image
-              alt="Nexa Logo"
+              alt="Nexaguard Cyber Labs"
               className="h-12 w-auto sm:h-12 md:h-12"
               height={50}
               priority
@@ -89,27 +82,8 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* ================= MOBILE CALL ICON ================= */}
-        <div className="md:hidden">
-          <Link aria-label="Call us" href="tel:+971000000000">
-            <div className="rounded-full p-2 text-white transition hover:bg-nexacyan/10">
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.8}
-                viewBox="0 0 24 24"
-              >
-                <title>Phone</title>
-                <path
-                  d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.516 2.064a2 2 0 01-.45 1.865l-1.27 1.27a16 16 0 006.586 6.586l1.27-1.27a2 2 0 011.865-.45l2.064.516A2 2 0 0121 16.72V19a2 2 0 01-2 2h-1C9.163 21 3 14.837 3 7V5z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </Link>
-        </div>
+        {/* ================= MOBILE SPACER ================= */}
+        <div className="w-10 md:hidden" />
 
         {/* ================= DESKTOP NAV ================= */}
         <nav className="hidden items-center space-x-6 md:flex lg:space-x-8">
@@ -134,20 +108,16 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* ================= DESKTOP CONTACT BUTTON ================= */}
-        <div className="hidden md:block">
-          <button
-            className={`cursor-pointer rounded-full border px-5 py-2 font-semibold text-sm transition ${
-              isContactActive
-                ? "border-cyan-400 bg-gradient-to-r from-cyan-500/80 to-blue-500/80 text-white shadow-cyan-500/10 shadow-lg"
-                : "border-nexacyan text-white hover:bg-nexacyan/10"
-            }
-            `}
-            onClick={handleContactScroll}
-            type="button"
+        {/* ================= DESKTOP CTA ================= */}
+        <div className="hidden items-center md:flex">
+          <a
+            className="cursor-pointer rounded-full border border-nexacyan bg-gradient-to-r from-[#18A7B7] to-[#1F88BF] px-5 py-2 font-semibold text-sm text-white shadow-[0_0_20px_rgba(24,167,183,0.25)] transition hover:opacity-90"
+            href={CALENDLY_URL}
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            Contact Us
-          </button>
+            Get Free Audit →
+          </a>
         </div>
       </div>
 
@@ -217,16 +187,16 @@ export default function Navbar() {
               );
             })}
 
-            <button
-              className="mt-6 rounded-full border border-nexacyan px-6 py-2 text-white transition hover:bg-nexacyan/20"
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                handleContactScroll();
-              }}
-              type="button"
+            {/* Mobile CTA */}
+            <a
+              className="mt-2 rounded-full border border-[#18A7B7] bg-gradient-to-r from-[#18A7B7] to-[#1F88BF] px-6 py-3 text-center font-semibold text-white"
+              href={CALENDLY_URL}
+              onClick={() => setIsMobileMenuOpen(false)}
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Contact Us
-            </button>
+              Get Free Audit →
+            </a>
           </div>
         </div>
       </div>

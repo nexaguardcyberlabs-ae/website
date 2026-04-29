@@ -179,25 +179,6 @@ export default function VisionMission() {
         </div>
       </div>
 
-      {/* Animation Keyframes */}
-      <style global jsx>{`
-        @keyframes scan {
-          0% {
-            transform: translateY(-100%);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(500px);
-            opacity: 0;
-          }
-        }
-      `}</style>
     </section>
   );
 }

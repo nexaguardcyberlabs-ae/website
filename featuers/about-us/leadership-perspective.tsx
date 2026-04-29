@@ -1,39 +1,69 @@
-import Image from "next/image";
+"use client";
+
+import { motion } from "framer-motion";
+import GridPatternBackground from "@/components/backgrounds/GridPatternBackground";
 
 export default function LeadershipPerspective() {
   return (
-    <section className="relative mb-25 w-full bg-[#020B14] px-4 py-12 md:px-6 md:py-24">
-      <div className="mx-auto max-w-9xl px-0 sm:px-5 md:px-20">
-        <div className="relative flex min-h-100 w-full flex-col items-center justify-center overflow-hidden rounded-3xl md:h-[400px]">
-          {/* Background Image using 'fill' for perfect responsiveness */}
-          <Image
-            alt="Leadership Perspective Background"
-            className="object-cover object-center"
-            fill // Replaces width/height to adapt to the parent container
-            priority
-            src="/about/Leadership-bg.jpg"
-          />
+    <section className="relative w-full overflow-hidden bg-[#020B14] px-4 py-24 md:py-32">
+      <GridPatternBackground />
 
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 z-10 bg-black/20" />
+      {/* Decorative horizontal accent line */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" />
 
-          {/* Content Wrapper */}
-          <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 py-12 text-center sm:px-12 lg:px-24">
-            {/* Badge */}
-            <span className="mb-6 inline-block rounded-full border border-white/20 px-4 py-1 font-medium text-white/90 text-xs tracking-wide backdrop-blur-md">
-              Leadership Perspective
-            </span>
+      <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center"
+        >
+          {/* Section label */}
+          <p className="mb-10 text-[10px] font-semibold text-cyan-400 uppercase tracking-[0.4em]">
+            Leadership Perspective
+          </p>
 
-            <p className="mx-auto max-w-4xl bg-gradient-to-r from-white to-[#CCCCCC] bg-clip-text text-center font-inter font-normal text-lg text-transparent italic leading-relaxed tracking-[-0.02em] sm:text-2xl md:text-[32px] md:leading-[48px]">
-              <span className="opacity-80">“</span>" Nexaguard was built on the
-              belief that enterprises deserve a partner who can protect their
-              present while shaping their future. We combine strategic foresight
-              with technical depth, so leaders can operate with confidence in
-              every digital moment. "
-            </p>
+          {/* Decorative large quote mark */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none select-none mb-4 font-bold text-[120px] leading-none text-cyan-400/8 -mt-8"
+            style={{ fontFamily: "Georgia, serif" }}
+          >
+            &ldquo;
           </div>
-        </div>
+
+          {/* Quote */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+            className="-mt-12 mx-auto max-w-3xl text-xl text-gray-200 italic leading-relaxed tracking-[-0.01em] sm:text-2xl md:text-[28px] md:leading-[1.55]"
+          >
+            Nexaguard was built on the belief that businesses deserve a partner
+            who protects their present while shaping their future. We combine
+            strategic foresight with technical depth, so leaders can operate
+            with confidence in every digital moment.
+          </motion.p>
+
+          {/* Attribution line */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.35, ease: "easeOut" }}
+            className="mt-10 flex items-center justify-center gap-4"
+          >
+            <div className="h-px w-12 bg-cyan-400/40" />
+            <span className="text-cyan-400/60 text-xs uppercase tracking-widest">Nexaguard Cyber Labs</span>
+            <div className="h-px w-12 bg-cyan-400/40" />
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Bottom accent line */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" />
     </section>
   );
 }

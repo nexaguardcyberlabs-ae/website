@@ -1,0 +1,13 @@
+{
+  "name": "Nexaguard Cyber Labs",
+  "short_name": "Nexaguard",
+  "description": "Cybersecurity consulting for UAE fintechs and growing businesses",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030910",
+  "theme_color": "#18A7B7",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

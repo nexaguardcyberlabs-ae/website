@@ -1,22 +1,30 @@
 "use client";
 
 import { useGSAP } from "@gsap/react";
+import { useReducedMotion } from "framer-motion";
 import gsap from "gsap";
+import { Lock, Shield, Handshake } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import MeshGradientBackground from "@/components/backgrounds/MeshGradientBackground";
+import SecurityMeshBackground from "@/components/backgrounds/SecurityMeshBackground";
+
+const CALENDLY_URL =
+  process.env.NEXT_PUBLIC_CALENDLY_URL ||
+  "https://calendly.com/nexaguard-placeholder";
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLElement>(null);
   const heroTextRef = useRef<HTMLHeadingElement>(null);
-  const subTextRef = useRef<HTMLParagraphElement>(null);
-  const ctaButtonRef = useRef<HTMLButtonElement>(null);
+  const subTextRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const prefersReduced = useReducedMotion();
 
   useGSAP(
     () => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // 1. Headline words stagger in
       tl.fromTo(
         heroTextRef.current,
         { y: 50, opacity: 0, clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" },
@@ -28,37 +36,17 @@ export default function HeroSection() {
           delay: 0.2,
         }
       )
-
-        // 2. Subtext fades up
         .fromTo(
           subTextRef.current,
           { y: 20, opacity: 0 },
           { y: 0, opacity: 1, duration: 1 },
           "-=0.8"
         )
-
-        // 3. CTA Button pops in
         .fromTo(
-          ctaButtonRef.current,
-          { scale: 0.8, opacity: 0 },
+          ctaRef.current,
+          { scale: 0.9, opacity: 0 },
           { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.7)" },
           "-=0.6"
-        )
-
-        // 4. Trust Bar separator expands
-        .fromTo(
-          ".trust-separator",
-          { scaleX: 0, opacity: 0 },
-          { scaleX: 1, opacity: 1, duration: 1 },
-          "-=0.4"
-        )
-
-        // 5. Partner logos stagger in
-        .fromTo(
-          ".partner-logo",
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, stagger: 0.1, duration: 0.8 },
-          "-=0.8"
         );
     },
     { scope: containerRef }
@@ -66,111 +54,159 @@ export default function HeroSection() {
 
   return (
     <main
-      className="relative flex min-h-screen w-full flex-col overflow-hidden bg-[#010102] bg-grid bg-hero-gradient bg-fixed pt-20 font-sans"
+      className="relative flex min-h-screen w-full flex-col overflow-hidden bg-[#010102] pt-28 sm:pt-32 font-sans"
       ref={containerRef}
     >
-      {/* --- Background Layers --- */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
-      >
-        {/* SVG Background */}
+      {/* ── Background Layers ── */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+        {/* Layer 0: Original hero assets */}
         <Image
-          alt="Hero background"
-          className="absolute inset-0 h-full w-full object-cover"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-60"
           fill
           priority
           src="/landing/landing-hero-sec.svg"
         />
-
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-grid opacity-70" />
-
-        {/* Light effect overlay */}
+        <div className="absolute inset-0 bg-grid opacity-50" />
         <Image
-          alt="Light effect"
-          className="pointer-events-none absolute top-0 left-0 z-1 h-auto w-full select-none opacity-20 mix-blend-overlay"
+          alt=""
+          className="pointer-events-none absolute top-0 left-0 h-auto w-full select-none opacity-15 mix-blend-overlay"
           height={2080}
           priority
           src="/landing/Hero-shadow.png"
           width={2920}
         />
+
+        {/* Layer 1: Mesh gradient blobs */}
+        <MeshGradientBackground />
+
+        {/* Layer 2: Security mesh lattice */}
+        <SecurityMeshBackground opacity={0.2} />
+
+        {/* Layer 3: Decorative SVG shapes — corners & edges */}
+        {!prefersReduced && (
+          <>
+            {/* Top-right hex ring */}
+            <svg
+              aria-hidden="true"
+              className="absolute -top-16 -right-16 h-72 w-72 opacity-[0.07]"
+              viewBox="0 0 200 200"
+              style={{ animation: "mesh-drift-3 40s ease-in-out infinite alternate", willChange: "transform" }}
+            >
+              <polygon points="100,10 185,57 185,143 100,190 15,143 15,57" fill="none" stroke="#18A7B7" strokeWidth="1.5" />
+              <polygon points="100,30 165,67 165,133 100,170 35,133 35,67" fill="none" stroke="#18A7B7" strokeWidth="0.8" />
+              <polygon points="100,50 145,77 145,123 100,150 55,123 55,77" fill="none" stroke="#18A7B7" strokeWidth="0.5" />
+            </svg>
+
+            {/* Bottom-left circuit motif */}
+            <svg
+              aria-hidden="true"
+              className="absolute -bottom-10 -left-10 h-64 w-64 opacity-[0.07]"
+              viewBox="0 0 200 200"
+              style={{ animation: "mesh-drift-1 35s ease-in-out infinite alternate", willChange: "transform" }}
+            >
+              <rect x="20" y="20" width="160" height="160" rx="8" fill="none" stroke="#1F88BF" strokeWidth="1" />
+              <rect x="50" y="50" width="100" height="100" rx="4" fill="none" stroke="#18A7B7" strokeWidth="0.8" />
+              <line x1="20" y1="100" x2="50" y2="100" stroke="#18A7B7" strokeWidth="1" />
+              <line x1="150" y1="100" x2="180" y2="100" stroke="#18A7B7" strokeWidth="1" />
+              <line x1="100" y1="20" x2="100" y2="50" stroke="#18A7B7" strokeWidth="1" />
+              <line x1="100" y1="150" x2="100" y2="180" stroke="#18A7B7" strokeWidth="1" />
+              <circle cx="100" cy="100" r="15" fill="none" stroke="#18A7B7" strokeWidth="0.8" />
+            </svg>
+
+            {/* Top-left shield outline */}
+            <svg
+              aria-hidden="true"
+              className="absolute top-1/4 left-4 h-40 w-40 opacity-[0.06]"
+              viewBox="0 0 100 120"
+              style={{ animation: "mesh-drift-2 28s ease-in-out infinite alternate", willChange: "transform" }}
+            >
+              <path d="M50,5 L90,20 L90,60 Q90,95 50,115 Q10,95 10,60 L10,20 Z" fill="none" stroke="#18A7B7" strokeWidth="1.5" />
+              <path d="M50,20 L75,32 L75,58 Q75,82 50,97 Q25,82 25,58 L25,32 Z" fill="none" stroke="#18A7B7" strokeWidth="0.8" />
+            </svg>
+          </>
+        )}
+
+        {/* Layer 4: Radial spotlight behind content */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(24,167,183,0.08) 0%, rgba(31,136,191,0.04) 40%, transparent 70%)",
+          }}
+        />
       </div>
 
-      {/* --- Main Hero Content --- */}
-      <section className="z-10 flex grow flex-col items-center justify-center px-4 text-center sm:px-6">
-        <h1
-          className="font-medium text-4xl leading-tight tracking-tight opacity-0 sm:text-5xl md:text-6xl lg:text-7xl"
-          ref={heroTextRef}
-        >
-          <span className="inline-block bg-[linear-gradient(91.66deg,#FFFFFF_24.97%,#19A7B6_108.37%)] bg-clip-text pt-10 pb-5 text-transparent -tracking-[0.02em]">
-            Securing <span className="text-nexacyan">Tomorrow.</span>
-            <br className="hidden sm:block" /> Transforming{" "}
-            <span className="text-nexacyan">Today.</span>
-          </span>
-        </h1>
+      {/* ── Main Hero Content — Single-column centered ── */}
+      <section className="relative z-10 flex grow flex-col items-center justify-center px-4 text-center sm:px-6">
+        <div className="mx-auto w-full max-w-[900px]">
 
-        <p
-          className="mt-6 max-w-3xl px-2 text-gray-300 text-sm leading-relaxed opacity-0 sm:mt-8 sm:text-lg md:text-xl"
-          ref={subTextRef}
-        >
-          Nexaguard Cyberlabs empowers modern enterprises with the confidence to
-          operate, innovate, and grow in an increasingly complex digital
-          landscape. We combine world-class cybersecurity with strategic digital
-          transformation to strengthen resilience, elevate performance, and
-          shape the future of your organization—starting now.
-        </p>
-        <Link href="/contact">
-          <button
-            className="mt-8 cursor-pointer rounded-full border border-white/25 bg-[linear-gradient(95.96deg,#18A7B7_20.55%,#1F88BF_64.75%),linear-gradient(100.85deg,rgba(255,255,255,0.016)_9.42%,rgba(255,255,255,0.016)_62.38%)] px-6 py-3 font-bold text-sm text-white opacity-0 bg-blend-overlay shadow-[0px_4px_4px_0px_#00000040_inset] outline-none transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,181,214,0.5)] sm:mt-12 sm:px-8 sm:py-3 sm:text-lg"
-            ref={ctaButtonRef}
-            type="button"
+          {/* H1 — no eyebrow badge */}
+          <h1
+            className="font-bold text-4xl leading-tight tracking-tight opacity-0 sm:text-5xl md:text-6xl lg:text-7xl"
+            ref={heroTextRef}
           >
-            Speak to a Strategic Advisor
-          </button>
-        </Link>
-        {/* --- Trust Bar --- */}
-        {/* <div className="z-10 w-full px-4 pt-25">
-          <div className="trust-separator mx-auto mb-6 flex max-w-6xl origin-center items-center sm:mb-8">
-            <div className="h-px grow bg-linear-to-r from-transparent via-gray-700 to-gray-700" />
-            <span className="mx-2 shrink-0 text-center text-[10px] text-white uppercase tracking-widest sm:mx-4 sm:text-sm">
-              Certified Experts, Trusted by Industry Leaders
+            <span className="inline-block -tracking-[0.02em]">
+              <span className="bg-[linear-gradient(91.66deg,#FFFFFF_24.97%,#19A7B6_108.37%)] bg-clip-text text-transparent">
+                Breaches Are Preventable.
+              </span>
+              <br />
+              <span className="text-white">Yours Will Be.</span>
             </span>
-            <div className="h-px grow bg-linear-to-l from-transparent via-gray-700 to-gray-700" />
+          </h1>
+
+          {/* Subhead + catchy copy */}
+          <div ref={subTextRef} className="opacity-0">
+            <p className="mx-auto mt-6 max-w-2xl text-gray-300 text-base leading-relaxed sm:text-lg md:text-xl">
+              Senior practitioners. Honest scoping. Reports that actually drive remediation.
+            </p>
+            <p className="mx-auto mt-3 max-w-xl text-gray-400 text-sm leading-relaxed italic sm:text-base">
+              Built for the businesses regulators audit, enterprises evaluate, and attackers target.
+            </p>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-20">
-            <div className="partner-logo relative opacity-0 grayscale transition-all duration-300 hover:grayscale-0">
-              <Image
-                alt="ISO 27001 Certified"
-                className="object-contain"
-                height={150}
-                src="/landing/Experts2.svg"
-                width={150}
-              />
-            </div>
-            <div className="partner-logo relative opacity-0 grayscale transition-all duration-300 hover:grayscale-0">
-              <Image
-                alt="Partner Logo 1"
-                className="object-contain"
-                height={100}
-                src="/landing/Experts1.svg"
-                width={100}
-              />
-            </div>
-            <div className="partner-logo relative opacity-0 grayscale transition-all duration-300 hover:grayscale-0">
-              <Image
-                alt="Partner Logo 3"
-                className="object-contain"
-                height={150}
-                src="/landing/Experts3.svg"
-                width={150}
-              />
-            </div>
+
+          {/* CTAs */}
+          <div
+            className="mt-10 flex flex-col items-center justify-center gap-4 opacity-0 sm:flex-row"
+            ref={ctaRef}
+          >
+            <a
+              className="hero-primary-cta rounded-full border border-white/25 bg-[linear-gradient(95.96deg,#18A7B7_20.55%,#1F88BF_64.75%)] px-8 py-3.5 font-bold text-sm text-white shadow-[0px_4px_4px_0px_#00000040_inset] transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,181,214,0.5)] sm:text-base"
+              href={CALENDLY_URL}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Get Free Audit →
+            </a>
+            <Link
+              className="rounded-full border border-white/20 px-8 py-3.5 font-semibold text-sm text-white transition-all duration-300 hover:border-cyan-400/50 hover:bg-white/5 sm:text-base"
+              href="/services"
+            >
+              See Our Services
+            </Link>
           </div>
-        </div> */}
+
+          {/* Trust strip */}
+          <div className="mt-8 flex items-center justify-center gap-6 opacity-50">
+            <span className="flex items-center gap-1.5 text-gray-400 text-xs">
+              <Lock className="h-3.5 w-3.5 text-cyan-400" />
+              Trusted methodology
+            </span>
+            <span className="h-3 w-px bg-white/20" />
+            <span className="flex items-center gap-1.5 text-gray-400 text-xs">
+              <Shield className="h-3.5 w-3.5 text-cyan-400" />
+              Senior-led
+            </span>
+            <span className="h-3 w-px bg-white/20" />
+            <span className="flex items-center gap-1.5 text-gray-400 text-xs">
+              <Handshake className="h-3.5 w-3.5 text-cyan-400" />
+              Discreet
+            </span>
+          </div>
+
+        </div>
       </section>
 
-      {/* Footer Fade */}
+      {/* Footer fade */}
       <div className="pointer-events-none absolute bottom-0 left-0 z-0 h-40 w-full bg-linear-to-t from-nexadark-900 to-transparent sm:h-64" />
     </main>
   );

@@ -1,0 +1,126 @@
+[
+  {
+    "timestamp": "2026-04-28T17:03:00.182Z",
+    "name": "Test User",
+    "email": "test@example.com",
+    "company": "Test Co",
+    "score": 72,
+    "category": "Strong",
+    "recommendations": [
+      "Enable MFA",
+      "Centralise logging",
+      "Test backups"
+    ],
+    "newsletter": false,
+    "answers": [
+      100,
+      75,
+      50,
+      100,
+      25,
+      50,
+      50,
+      25,
+      50,
+      100,
+      50,
+      75,
+      25,
+      50,
+      -1
+    ]
+  },
+  {
+    "timestamp": "2026-04-28T17:08:40.265Z",
+    "name": "Nexagaurd cyberlabs",
+    "email": "nexagaurdcyberlabs@gmail.com",
+    "company": "ghbknm",
+    "score": 29,
+    "category": "Developing",
+    "recommendations": [
+      "Implement a regular vulnerability assessment cadence. Even quarterly external scans significantly reduce risk exposure.",
+      "Enforce multi-factor authentication on all administrative accounts immediately. This is the single highest-impact control you can implement.",
+      "Establish automated dependency monitoring (Dependabot or Snyk) and a documented patch SLA. Outdated dependencies are the most common breach vector."
+    ],
+    "newsletter": true,
+    "answers": [
+      0,
+      50,
+      0,
+      50,
+      25,
+      25,
+      50,
+      25,
+      25,
+      50,
+      25,
+      25,
+      25,
+      25,
+      -2
+    ]
+  },
+  {
+    "timestamp": "2026-04-28T19:50:32.180Z",
+    "name": "hello",
+    "email": "abc@email.com",
+    "company": "abcd",
+    "score": 61,
+    "category": "Strong",
+    "recommendations": [
+      "Implement a regular vulnerability assessment cadence. Even quarterly external scans significantly reduce risk exposure.",
+      "Implement centralised logging with alerting. Without monitoring, you won't know about a breach until it's far too late.",
+      "Test your backup restoration procedures quarterly. Untested backups frequently fail when needed most."
+    ],
+    "newsletter": false,
+    "answers": [
+      25,
+      100,
+      75,
+      50,
+      50,
+      100,
+      50,
+      25,
+      100,
+      50,
+      50,
+      100,
+      25,
+      50,
+      -4
+    ]
+  },
+  {
+    "timestamp": "2026-04-29T11:04:07.120Z",
+    "name": "Zolvn",
+    "email": "hello.zolvn@gmail.com",
+    "company": "dqfe",
+    "score": 27,
+    "category": "Developing",
+    "recommendations": [
+      "Implement a regular vulnerability assessment cadence. Even quarterly external scans significantly reduce risk exposure.",
+      "Document a basic Information Security Policy. Without one, every other security investment lacks a foundation.",
+      "Enforce multi-factor authentication on all administrative accounts immediately. This is the single highest-impact control you can implement."
+    ],
+    "newsletter": false,
+    "answers": [
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      50,
+      25,
+      25,
+      -2
+    ]
+  }
+]

@@ -77,8 +77,8 @@ const getUserConfirmationEmailHtml = (name: string) => `
           <h1 style="margin:14px 0 10px 0;font-size:26px;line-height:1.2;color:#ffffff;font-weight:700;">Thank you for contacting NexaGuard</h1>
           <p style="margin:0 0 14px 0;font-size:15px;color:#cbd5e1;line-height:1.7;">Hi ${escapeHtml(name)},</p>
           <p style="margin:0 0 14px 0;font-size:15px;color:#cbd5e1;line-height:1.7;">Your message is with our security team now. We’ll review your request and respond shortly.</p>
-          <p style="margin:0 0 20px 0;font-size:15px;color:#cbd5e1;line-height:1.7;">For urgent queries, contact us at <a href="tel:+971506233538" style="color:#22d3ee;text-decoration:none;">+971 50 6233538</a> or <a href="mailto:info@Nexaguardcyberlabs.com" style="color:#22d3ee;text-decoration:none;">info@Nexaguardcyberlabs.com</a>.</p>
-          <a href="https://Nexaguardcyberlabs.com" style="display:inline-block;background:linear-gradient(95.96deg,#18A7B7 20.55%,#1F88BF 64.75%);color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.25);">Visit Website</a>
+          <p style="margin:0 0 20px 0;font-size:15px;color:#cbd5e1;line-height:1.7;">For urgent queries, contact us at <a href="tel:+971506233538" style="color:#22d3ee;text-decoration:none;">+971 50 623 3538</a> or <a href="mailto:info@nexaguardcyberlabs.com" style="color:#22d3ee;text-decoration:none;">info@nexaguardcyberlabs.com</a>.</p>
+          <a href="https://nexaguardcyberlabs.com" style="display:inline-block;background:linear-gradient(95.96deg,#18A7B7 20.55%,#1F88BF 64.75%);color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.25);">Visit Website</a>
         </div>
       </div>
       <p style="margin:14px 0 0 0;text-align:center;color:#64748b;font-size:12px;">© 2026 NexaGuard Cyberlabs. All rights reserved.</p>

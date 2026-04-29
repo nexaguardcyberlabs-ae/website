@@ -1,0 +1,33 @@
+# Nexaguard Cyber Labs
+
+> A Dubai-based cybersecurity consultancy serving UAE and GCC mid-market businesses. We provide penetration testing (VAPT), ISO 27001 readiness, GRC consulting, and managed security services for fintechs, SaaS companies, healthcare organisations, and growing businesses.
+
+## About
+Nexaguard Cyber Labs FZCO is registered in IFZA Freezone, Dubai. Founded September 2025. Based in Dubai Silicon Oasis. Serves clients across UAE, Saudi Arabia, Qatar, Bahrain, Oman, Kuwait.
+
+## Core Services
+- Application Security & Penetration Testing (Web, Mobile, API, Source Code)
+- Cyber Risk Management & GRC (ISO 27001, NESA, ADGM, DIFC, PCI DSS)
+- Managed Security Services (Managed VAPT, 24/7 SOC, Managed AppSec)
+- Cloud and Infrastructure Security
+- Human Defense & Cyber Awareness Training
+
+## Compliance Frameworks
+NESA UAE IAS, ADGM Cyber Risk Framework, DIFC Data Protection, ADHICS, ISO/IEC 27001:2022, PCI DSS v4.0, UAE PDPL, GDPR, SOC 2.
+
+## Contact
+- Email: info@nexaguardcyberlabs.com
+- Phone / WhatsApp: +971 50 623 3538
+- Website: https://nexaguardcyberlabs.com
+
+## Key Pages
+- /about-us: Company background and mission
+- /services: Full service portfolio
+- /services/application-security: VAPT, web/mobile/API penetration testing
+- /services/cyber-risk-management: GRC, ISO 27001, NESA, compliance
+- /services/managed-services: Managed VAPT, SOC, ongoing protection
+- /services/cloud-infrastructure-security: Cloud security, network penetration testing, ICS/SCADA assessments, infrastructure hardening
+- /services/human-defense-awareness: Cybersecurity awareness training, phishing simulations, social engineering assessments
+- /resources: Free UAE cybersecurity resources — compliance checklist, web app security guide, VAPT self-assessment
+- /resources/vapt-readiness-assessment: Free 15-question VAPT readiness self-assessment. Returns personalised score and recommendations.
+- /contact: Contact information and consultation booking

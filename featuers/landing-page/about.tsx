@@ -1,162 +1,150 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
 import { useRef } from "react";
 
-// Register GSAP
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-const bgImage = "/about-bg.jpg";
-
 export default function AboutUsSection() {
-  const containerRef = useRef<HTMLElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const imageWrapperRef = useRef<HTMLDivElement>(null);
-  const textTitleRef = useRef<HTMLHeadingElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const prefersReduced = useReducedMotion();
 
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=2000", // Long scroll for smoothness
-          scrub: 1,
-          pin: true, // Lock the section
-          anticipatePin: 1,
-        },
-      });
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
 
-      // 1. Image Expansion & Colorize
-      tl.fromTo(
-        imageWrapperRef.current,
-        {
-          width: "30%",
-          height: "40%",
-          borderRadius: "30px",
-          filter: "grayscale(100%) brightness(0.8)",
-        },
-        {
-          width: "100%",
-          height: "100%",
-          borderRadius: "0px",
-          filter: "grayscale(0%) brightness(0.6)", // Darken slightly for text readability
-          duration: 2,
-          ease: "power2.inOut",
-        }
-      )
-        // 2. Title Fly-Through (Scale UP and Fade OUT)
-        .fromTo(
-          textTitleRef.current,
-          { scale: 1, opacity: 1 },
-          { scale: 15, opacity: 0, duration: 1.5, ease: "power2.in" },
-          "<" // Start at same time as image expansion
-        )
-        // 3. Content Float Up
-        .fromTo(
-          contentRef.current,
-          { y: 100, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
-          "-=0.5" // Slight overlap
-        );
-
-      // HUD Fade In
-      gsap.to(".hud-element", {
-        opacity: 1,
-        duration: 1,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top+=500", // Wait a bit
-          toggleActions: "play none none reverse",
-        },
-      });
-    },
-    { scope: containerRef }
-  );
+  const bgY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "30%"]);
+  const fgY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "-10%"]);
 
   return (
-    <section className="relative z-10 bg-[#020305]" ref={containerRef}>
-      {/* Sticky Container */}
-      <div
-        className="relative flex h-screen w-full items-center justify-center overflow-hidden"
-        ref={stickyRef}
+    <section
+      className="relative w-full overflow-hidden py-28 lg:py-36"
+      ref={sectionRef}
+      style={{ background: "#020305" }}
+    >
+      {/* Parallax mesh-gradient background */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{ y: bgY }}
       >
-        {/* --- 1. The Expanding Image --- */}
         <div
-          className="relative z-10 overflow-hidden shadow-2xl"
-          ref={imageWrapperRef}
-          style={{ width: "30%", height: "40%" }} // Initial state
-        >
-          <Image
-            alt="Nexa Operations"
-            className="object-cover"
-            fill
-            priority
-            src={bgImage}
-          />
-
-          {/* Overlay Grid (Visible when full screen) */}
-          <div className="absolute inset-0 bg-[url('/landing/noise.png')] opacity-20 mix-blend-overlay dark:bg-[url('/landing/noise-dark.png')]" />
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)",
-              backgroundSize: "50px 50px",
-            }}
-          />
-        </div>
-        {/* --- 2. The Fly-Through Title --- */}
-        <h2
-          className="pointer-events-none absolute z-20 text-center font-black text-[8vw] text-white leading-none tracking-tighter mix-blend-difference"
-          ref={textTitleRef}
-        >
-          WHO WE ARE
-        </h2>
-
-        {/* --- 3. The Revealed Content --- */}
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 70% 50%, rgba(24,167,183,0.08) 0%, rgba(31,136,191,0.04) 40%, transparent 70%)",
+          }}
+        />
+        {/* Subtle animated grid */}
         <div
-          className="pointer-events-none absolute z-30 flex h-full w-full flex-col items-center justify-center px-6 pb-20"
-          ref={contentRef}
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+        {/* Network node decoration */}
+        <svg
+          aria-hidden="true"
+          className="absolute right-0 top-1/2 -translate-y-1/2 opacity-10 lg:opacity-[0.07]"
+          fill="none"
+          height="500"
+          viewBox="0 0 500 500"
+          width="500"
         >
-          <div className="pointer-events-auto w-full max-w-9xl">
-            <div className="mx-auto mb-8 w-fit rounded-full border border-cyan-400 px-6 py-2 font-medium text-sm uppercase tracking-wider sm:text-base">
-              About Us
-            </div>
-            {/* Intro Block */}
-            <div className="mb-8 flex flex-col items-center justify-center pl-6 text-center">
-              <h3 className="mb-4 text-center font-bold text-4xl text-white md:text-6xl">
-                Your Trusted Cybersecurity & <br />
-                <span className="bg-linear-to-r from-cyan-400 to-white bg-clip-text text-transparent">
-                  Digital Transformation Partner
-                </span>
-              </h3>
-              <p className="max-w-6xl text-center text-2xl text-slate-300 leading-relaxed">
-                Nexaguard Cyberlabs supports global enterprises in strengthening
-                cyber defenses and modernizing their digital ecosystem. Guided
-                by precision and strategic clarity, we deliver solutions that
-                empower organizations to adapt, innovate, and lead in
-                today&apos;s dynamic digital landscape.
-              </p>
-            </div>
+          <circle cx="250" cy="250" r="2" fill="#18A7B7" />
+          <circle cx="150" cy="150" r="2" fill="#18A7B7" />
+          <circle cx="350" cy="150" r="2" fill="#18A7B7" />
+          <circle cx="150" cy="350" r="2" fill="#18A7B7" />
+          <circle cx="350" cy="350" r="2" fill="#18A7B7" />
+          <circle cx="80" cy="250" r="1.5" fill="#1F88BF" />
+          <circle cx="420" cy="250" r="1.5" fill="#1F88BF" />
+          <circle cx="250" cy="80" r="1.5" fill="#1F88BF" />
+          <circle cx="250" cy="420" r="1.5" fill="#1F88BF" />
+          <line x1="250" y1="250" x2="150" y2="150" stroke="#18A7B7" strokeWidth="0.5" />
+          <line x1="250" y1="250" x2="350" y2="150" stroke="#18A7B7" strokeWidth="0.5" />
+          <line x1="250" y1="250" x2="150" y2="350" stroke="#18A7B7" strokeWidth="0.5" />
+          <line x1="250" y1="250" x2="350" y2="350" stroke="#18A7B7" strokeWidth="0.5" />
+          <line x1="150" y1="150" x2="80" y2="250" stroke="#1F88BF" strokeWidth="0.3" />
+          <line x1="350" y1="150" x2="420" y2="250" stroke="#1F88BF" strokeWidth="0.3" />
+          <line x1="150" y1="150" x2="250" y2="80" stroke="#1F88BF" strokeWidth="0.3" />
+          <line x1="350" y1="150" x2="250" y2="80" stroke="#1F88BF" strokeWidth="0.3" />
+          <line x1="150" y1="350" x2="80" y2="250" stroke="#1F88BF" strokeWidth="0.3" />
+          <line x1="350" y1="350" x2="420" y2="250" stroke="#1F88BF" strokeWidth="0.3" />
+          <line x1="150" y1="350" x2="250" y2="420" stroke="#1F88BF" strokeWidth="0.3" />
+          <line x1="350" y1="350" x2="250" y2="420" stroke="#1F88BF" strokeWidth="0.3" />
+        </svg>
+      </motion.div>
+
+      {/* Foreground content with subtle parallax */}
+      <motion.div
+        className="relative z-10 mx-auto max-w-4xl px-6 sm:px-8 lg:px-12"
+        style={{ y: fgY }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-80px" }}
+          whileInView={{ opacity: 1, y: 0 }}
+        >
+          {/* Eyebrow */}
+          <span className="mb-4 inline-block font-semibold text-cyan-400 text-xs uppercase tracking-[0.2em]">
+            Who We Are
+          </span>
+
+          {/* Heading */}
+          <h2 className="mb-8 font-bold text-3xl text-white leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+            A Senior-Led Cybersecurity Practice.{" "}
+            <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              Based in Dubai.
+            </span>
+          </h2>
+
+          {/* Body */}
+          <div className="space-y-5 text-base text-gray-300 leading-relaxed sm:text-lg">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              whileInView={{ opacity: 1, y: 0 }}
+            >
+              Nexaguard Cyber Labs is a boutique cybersecurity consultancy
+              serving UAE and GCC businesses that need enterprise-grade security
+              work without enterprise overhead.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+              viewport={{ once: true, margin: "-80px" }}
+              whileInView={{ opacity: 1, y: 0 }}
+            >
+              We focus on what actually moves the needle for growing companies:
+              penetration testing that finds real vulnerabilities, compliance
+              support that gets you through real audits, and managed services
+              that keep you protected after the engagement ends.
+            </motion.p>
           </div>
-        </div>
 
-        {/* --- 4. HUD Elements (Fixed Decorations) --- */}
-        {/* Top Left */}
-
-        {/* Bottom Left Corner */}
-        <div className="hud-element absolute bottom-8 left-8 z-40 h-16 w-16 border-white/20 border-b border-l opacity-0" />
-
-        {/* Bottom Right Corner */}
-        <div className="hud-element absolute right-8 bottom-8 z-40 h-16 w-16 border-white/20 border-r border-b opacity-0" />
-      </div>
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+            viewport={{ once: true, margin: "-80px" }}
+            whileInView={{ opacity: 1, y: 0 }}
+          >
+            <Link
+              className="group mt-10 inline-flex items-center gap-2 font-semibold text-cyan-400 text-sm transition-colors hover:text-cyan-300 sm:text-base"
+              href="/about-us"
+            >
+              Learn About Us
+              <span className="inline-block transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
