@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import Analytics from "@/components/analytics";
+import ApolloTracker from "@/components/apollo-tracker";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import OrganizationSchema from "@/components/organization-schema";
@@ -62,6 +63,7 @@ export default function RootLayout({
         <WhatsAppButton />
         <Footer />
         <VercelAnalytics />
+        <ApolloTracker />
       </body>
     </html>
   );
